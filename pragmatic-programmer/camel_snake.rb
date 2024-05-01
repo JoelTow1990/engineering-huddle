@@ -13,27 +13,34 @@ end
 
 def replace_case(filename)
   content = File.read(filename)
-  camel_case_words = []
-  content.scan(/[a-z]+[A-Z]\w*/) { |word| camel_case_words << word }
+  words = content.scan(/[a-z]+[A-Z]\w*/)
   new_content = content.dup
 
-  camel_case_words.each do |word|
+  words.each do |word|
     new_word = word.gsub(/([A-Z])/, "_\\1").downcase
     new_content.gsub!(word, new_word)
   end
 
+  new_content
+end
+
+def write_with_backup(filename, content, new_content)
   if content != new_content
     File.write(filename, new_content)
     File.write("#{filename}.backup", content)
   end
 end
 
+if __FILE__ == $0
+  files = Dir.glob("./*#{extension}")
 
-files = Dir.glob("./*#{extension}")
-files.each do |file|
-  report_camel_case(file)
+  files.each do |file|
+    report_camel_case(file)
 
-  if replace
-    replace_case(file)
+    if replace
+      content = File.read(file)
+      new_content = replace_case(file)
+      write_with_backup(file, content, new_content)
+    end
   end
 end
