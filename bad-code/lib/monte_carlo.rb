@@ -26,7 +26,6 @@ class MonteCarlo
   end
   
   class Strategy 
-    attr_accessor :bet
     def determine_bet(round)
       raise NotImplementedError
     end
@@ -40,7 +39,7 @@ class MonteCarlo
   
   class Martingale < Strategy
     def determine_bet(round)
-      return 2 ** round
+      2 ** round
     end
   end
   
