@@ -8,7 +8,7 @@ class Roulette
     random <= @win_p ? unit_size : -unit_size
   end
   
-  def monte_carlo(games=1000, unit_size=1.0, &strategy=constant)
+  def monte_carlo(games = 1000, unit_size = 1.0, &strategy)
     reward = 0
     (1..games).each do |_|
       unit_size = strategy.call(unit_size)
@@ -20,6 +20,8 @@ end
 
 constant = -> (unit) { unit }
 martingale = -> (unit) { unit * 2 }
+
+puts Roulette.new(18.0 / 37.0 ).monte_carlo(1000, 1.0, &martingale)
 
 # This Roulette class is not easy to test:
 #   - No deterministic output for either method

@@ -1,6 +1,6 @@
-require_relative "../lib/fizzbuzz_one"
-require_relative "../lib/fizzbuzz_two"
-require_relative "../lib/fizzbuzz_three"
+require_relative "../../lib/fizz/fizzbuzz_one"
+require_relative "../../lib/fizz/fizzbuzz_two"
+require_relative "../../lib/fizz/fizzbuzz_three"
 
 RSpec.describe 'Fizzbuzz implementations' do
   def generate_divisible_by_n(n)

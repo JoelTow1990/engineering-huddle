@@ -1,5 +1,6 @@
 class MonteCarlo
   attr_reader :game, :strategy
+  
   def initialize(game, strategy)
     @game = game
     @strategy = strategy
