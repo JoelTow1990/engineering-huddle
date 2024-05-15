@@ -1,4 +1,4 @@
-class FizzBuzz
+class FizzBuzzThree
   FACTOR_SOUND_MAPPING = {
     3 => "Fizz",
     5 => "Buzz",
@@ -12,9 +12,5 @@ class FizzBuzz
   end
 end
 
-p FizzBuzz.convert(3)
-p FizzBuzz.convert(5)
-p FizzBuzz.convert(7)
-p FizzBuzz.convert(15)
 
 # Concise, declarative, readable, easy to change and extensible

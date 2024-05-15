@@ -1,4 +1,4 @@
-class FizzBuzz
+class FizzBuzzOne
   def self.convert(n)
     res = ''
 
@@ -13,12 +13,7 @@ class FizzBuzz
   end
 end
 
-p FizzBuzz.convert(3)
-p FizzBuzz.convert(5)
-p FizzBuzz.convert(7)
-p FizzBuzz.convert(15)
 
 # Values hardcoded into function
 # If we want to add factors we have to keep adding if statements
 # Violation of dry with repeated logic
-# Only one function to test
