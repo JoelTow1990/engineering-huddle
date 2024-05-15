@@ -1,5 +1,4 @@
 class Roulette
-
   def initialize(win_p = 0.5)
     @win_p = win_p
   end
@@ -9,7 +8,7 @@ class Roulette
     random <= @win_p ? unit_size : -unit_size
   end
   
-  def monte_carlo(games=1000, unit_size=1.0, &strategy)
+  def monte_carlo(games=1000, unit_size=1.0, &strategy=constant)
     reward = 0
     (1..games).each do |_|
       unit_size = strategy.call(unit_size)
