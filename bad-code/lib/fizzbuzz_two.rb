@@ -4,21 +4,20 @@ class FizzBuzzTwo
     5 => "Buzz",
   }
 
-  def self.convert(n)
-    res = ''
+  def self.convert(integer)
+    result = ''
     FACTOR_SOUND_MAPPING.each do |factor, sound|
-      res += check_factor(n, factor, sound)
+      result += check_factor(integer, factor, sound)
     end
 
-    res.empty? ? n.to_s : res
+    result.empty? ? integer.to_s : result
   end
 
-  def self.check_factor(n, m, str)
-    n % m == 0 ? str : ''
+  def self.check_factor(dividend, divisor, sound)
+    dividend % divisor == 0 ? sound : ''
   end
 end
 
 
 # Factored out logic, no violation of dry
 # More extensible because of hash instead of hardcoded values
-# Technically more testable, though I would argue check factor is a private method and we shouldn't test it

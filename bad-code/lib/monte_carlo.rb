@@ -1,12 +1,11 @@
 class MonteCarlo
-  attr_reader :rounds, :game, :strategy
-  def initialize(rounds, game, strategy)
-    @rounds = rounds
+  attr_reader :game, :strategy
+  def initialize(game, strategy)
     @game = game
     @strategy = strategy
   end
 
-  def simulate
+  def simulate(rounds)
     rewards = 0
     rounds.times do |round|
       rewards += game.play(strategy.determine_bet(round))

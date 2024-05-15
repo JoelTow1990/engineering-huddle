@@ -8,35 +8,35 @@ RSpec.describe MonteCarlo do
   describe "MonteCarlo will simulate n rounds of a Game" do
     context "The strategy is Constant" do
       let(:strategy) { Constant.new }
-      let(:monte_carlo) { MonteCarlo.new(rounds, game, strategy) }
+      let(:monte_carlo) { MonteCarlo.new(game, strategy) }
 
       it "returns an integer reward after arbitrarily many rounds" do
-        expect(monte_carlo.simulate).to be_a(Integer)
+        expect(monte_carlo.simulate(rounds)).to be_a(Integer)
       end
     end
 
     context "The strategy is Martingale" do
       let(:strategy) { Martingale.new }
-      let(:monte_carlo) { MonteCarlo.new(rounds, game, strategy) }
+      let(:monte_carlo) { MonteCarlo.new(game, strategy) }
 
       it "returns an integer reward after arbitrarily many rounds" do
-        expect(monte_carlo.simulate).to be_a(Integer)
+        expect(monte_carlo.simulate(rounds)).to be_a(Integer)
       end
     end
 
     context "the instance objects are called n times, where rounds = n" do
       let(:game) { instance_double(Game, play: 1) }
       let(:strategy) { instance_double(Constant, determine_bet: 1) }
-      let(:monte_carlo) { MonteCarlo.new(rounds, game, strategy) }
+      let(:monte_carlo) { MonteCarlo.new(game, strategy) }
       
       it 'calls game.play rounds number of times' do
         expect(game).to receive(:play).exactly(rounds).times
-        monte_carlo.simulate
+        monte_carlo.simulate(rounds)
       end
 
       it 'calls strategy.determine_bet rounds number of times' do
         expect(strategy).to receive(:determine_bet).exactly(rounds).times
-        monte_carlo.simulate
+        monte_carlo.simulate(rounds)
       end
     end
   end
