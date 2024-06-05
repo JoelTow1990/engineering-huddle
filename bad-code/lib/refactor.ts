@@ -8,16 +8,20 @@ export type ServiceData = {
 const clausePrefixSet = ["line-", "direction-", "route-", "service-type-"];
 
 export function matchesClause(clause: string, service: ServiceData) {
-  let [strippedClause, negated] = stripNegation(clause) as [string, boolean];
+  let strippedClause = stripNegation(clause);
   const clausePrefix = findClausePrefix(strippedClause);
-
   let matches = checkValueMatch(service, clausePrefix, strippedClause);
-
+  
+  let negated = isNegated(clause, strippedClause)
   return handleNegation(matches, negated)
 }
 
 function stripNegation(clause: string) {
-  return clause.startsWith("!") ? [clause.slice(1), true] : [clause, false];
+  return clause.startsWith("!") ? clause.slice(1) : clause;
+}
+
+function isNegated(clause: string, strippedClause: string) {
+  return clause.length !== strippedClause.length
 }
 
 function findClausePrefix(clause: string) {
