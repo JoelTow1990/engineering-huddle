@@ -1,5 +1,4 @@
-# spec/monte_carlo_spec.rb
-require_relative '../../lib/monte_carlo/monte_carlo'
+require_relative '../lib/monte_carlo'
 
 RSpec.describe MonteCarlo do
   let(:game) { Game.new(0.5) }
