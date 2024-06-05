@@ -7,6 +7,9 @@ class Roulette
     random = rand(0.0..1.0)
     random <= @win_p ? unit_size : -unit_size
   end
+
+  #make martingale method and track whether you win as input
+  # or keep it as block but take the argument of whether bet won
   
   def monte_carlo(games = 1000, unit_size = 1.0, &strategy)
     reward = 0
