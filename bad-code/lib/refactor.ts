@@ -9,19 +9,21 @@ const clausePrefixSet = ["line-", "direction-", "route-", "service-type-"];
 
 export function matchesClause(clause: string, service: ServiceData) {
   let strippedClause = stripNegation(clause);
-  const clausePrefix = findClausePrefix(strippedClause);
-  let matches = checkValueMatch(service, clausePrefix, strippedClause);
-  
-  let negated = isNegated(clause, strippedClause)
-  return handleNegation(matches, negated)
+  let matches = checkValueMatch(service, strippedClause);
+
+  return handleNegation(matches, isClauseNegated(clause, strippedClause))
 }
 
 function stripNegation(clause: string) {
   return clause.startsWith("!") ? clause.slice(1) : clause;
 }
 
-function isNegated(clause: string, strippedClause: string) {
-  return clause.length !== strippedClause.length
+function checkValueMatch(service: ServiceData, clause: string) {
+  const clausePrefix = findClausePrefix(clause);
+  let expectedValue = getPrefixValueMap(service)[clausePrefix]
+  let actualValue = findClauseValue(clause)
+
+  return expectedValue === actualValue;
 }
 
 function findClausePrefix(clause: string) {
@@ -32,13 +34,6 @@ function findClausePrefix(clause: string) {
   }
 
   return prefix;
-}
-
-function checkValueMatch(service: ServiceData, prefix: string, clause: string) {
-  let expectedValue = getPrefixValueMap(service)[prefix]
-  let actualValue = findClauseValue(clause)
-
-  return expectedValue === actualValue;
 }
 
 function getPrefixValueMap(service: ServiceData) {
@@ -54,6 +49,10 @@ function findClauseValue(clause: string) {
   // why check it has a prefix when we already know it does
   const clausePrefix = findClausePrefix(clause);
   return clause.slice(clausePrefix.length);
+}
+
+function isClauseNegated(clause: string, strippedClause: string) {
+  return clause.length !== strippedClause.length
 }
 
 function handleNegation(matches: boolean, negated: boolean) {
