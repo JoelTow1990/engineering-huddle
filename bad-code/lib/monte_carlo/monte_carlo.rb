@@ -42,11 +42,3 @@ class Martingale < Strategy
     2 ** round
   end
 end
-  
-  # Some issues:
-  # - Not dealing with temporal coupling
-  # - Would benefit from caching previous bet and doubling it in Martingale
-  # - Game assumes you either gain or lose your bet, but we could introduce
-  #   more complex rule, like win_factor (e.g. 1/win_probality) and include
-  #   this in our game
-  # - Probably need to handle numerical overflow for Martingale

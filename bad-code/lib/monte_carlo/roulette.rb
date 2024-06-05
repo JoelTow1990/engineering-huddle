@@ -21,17 +21,4 @@ end
 constant = -> (unit) { unit }
 martingale = -> (unit) { unit * 2 }
 
-puts Roulette.new(18.0 / 37.0 ).monte_carlo(1000, 1.0, &martingale)
-
-# This Roulette class is not easy to test:
-#   - No deterministic output for either method
-#   
-# The variable and method names are not informative:
-#   - :game is probably more informative than :simulation
-#   - random doesn't convey the purpose of the variable
-#   - strategy names don't indicate their purpose
-#
-# Several responsibilities tied up in this class:
-#   - Playing game (:simulation)
-#   - Running Monte Carlo simulation (:monte_carlo)
-#   - Applying the betting strategy
+puts Roulette.new(18.0 / 37.0).monte_carlo(1000, 1.0, &martingale)
