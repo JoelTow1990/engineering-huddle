@@ -1,12 +1,12 @@
 class MonteCarlo
-  attr_reader :rounds, :game, :strategy
-  def initialize(rounds, game, strategy)
-    @rounds = rounds
+  attr_reader :game, :strategy
+  
+  def initialize(game, strategy)
     @game = game
     @strategy = strategy
   end
 
-  def simulate
+  def simulate(rounds)
     rewards = 0
     rounds.times do |round|
       rewards += game.play(strategy.determine_bet(round))
@@ -42,11 +42,3 @@ class Martingale < Strategy
     2 ** round
   end
 end
-  
-  # Some issues:
-  # - Not dealing with temporal coupling
-  # - Would benefit from caching previous bet and doubling it in Martingale
-  # - Game assumes you either gain or lose your bet, but we could introduce
-  #   more complex rule, like win_factor (e.g. 1/win_probality) and include
-  #   this in our game
-  # - Probably need to handle numerical overflow for Martingale
